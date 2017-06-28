@@ -1,6 +1,6 @@
 import amqp from 'amqplib';
-import RPATaskExecuter from './RPATaskExecuter';
-import RPAStrategy from './RPAStrategy';
+import jobExecuter from './jobExecuter';
+import executerStrategy from './executerStrategies';
 
 let connection;
 let channel;
@@ -17,7 +17,7 @@ function consume() {
       const jobInput = JSON.parse(jobObj.jobInput);
 
 
-      const executer = RPATaskExecuter(RPAStrategy[jobType]);
+      const executer = jobExecuter(executerStrategy[executerType]);
       executer.execute(jobName, jobInput, (err, jobOutput) => {
         if (err) {
 
